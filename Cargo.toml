@@ -1,10 +1,6 @@
 [workspace]
 resolver = "2"
-members = [
-    "cvlr-soroban",
-    "cvlr-soroban-macros",
-    "cvlr-soroban-derive"
-]
+members = ["cvlr-soroban", "cvlr-soroban-macros", "cvlr-soroban-derive"]
 
 [workspace.package]
 version = "0.3.0"
@@ -22,9 +18,9 @@ trybuild = "1"
 soroban-sdk = "22"
 
 
-cvlr-asserts = { git = "https://github.com/1arie1/cvlr.git", version="0.3" }
-cvlr-nondet = { git = "https://github.com/1arie1/cvlr.git", version="0.3" }
-cvlr-log = { git = "https://github.com/1arie1/cvlr.git", version="0.3" }
+cvlr-asserts = { git = "https://github.com/1arie1/cvlr.git", version = "0.3" }
+cvlr-nondet = { git = "https://github.com/1arie1/cvlr.git", default-features = false, version = "0.3" }
+cvlr-log = { git = "https://github.com/1arie1/cvlr.git", default-features = false, version = "0.3" }
 #cvlr-mathint = { git = "https://github.com/1arie1/cvlr.git", version="0.3" }
 
 # cvlr-asserts = { path = "../cvlr/cvlr-asserts" }
