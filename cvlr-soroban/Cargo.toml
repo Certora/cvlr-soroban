@@ -1,0 +1,17 @@
+[package]
+name = "cvlr-soroban"
+authors = ["Arie Gurfinkel <arie@certora.com>"]
+version.workspace = true
+edition = "2021"
+
+[features]
+default = []
+rt = ["cvlr-nondet/rt", "cvlr-asserts/rt"]
+
+[dependencies]
+
+soroban-sdk = { workspace = true }
+
+cvlr-asserts = { workspace = true }
+cvlr-nondet = { workspace = true, default-features = false }
+cvlr-log = { workspace = true, default-features = false }

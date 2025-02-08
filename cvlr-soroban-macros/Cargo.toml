@@ -1,0 +1,10 @@
+[package]
+name = "cvlr-soroban-macros"
+authors = ["Arie Gurfinkel <arie@certora.com>"]
+version.workspace = true
+edition = "2021"
+
+[features]
+default = []
+
+[dependencies]

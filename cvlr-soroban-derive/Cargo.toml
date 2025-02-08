@@ -1,0 +1,20 @@
+[package]
+name = "cvlr-soroban-derive"
+authors = ["Arie Gurfinkel <arie@certora.com>"]
+version.workspace = true
+edition = "2021"
+
+[lib]
+proc-macro = true
+
+[features]
+default = []
+
+[dependencies]
+uuid = { version = "1.10", features = [ "v4" ] }
+soroban-sdk = { version = ">=20.5.0" }
+soroban-sdk-macros = { version = ">=20.5.0" }
+quote = { version = "1.0" }
+syn = { version = "2.0" }
+proc-macro2 = { version = "1.0" }
+darling = { version = "0.20.0" }
