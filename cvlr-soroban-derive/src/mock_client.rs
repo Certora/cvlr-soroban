@@ -97,6 +97,8 @@ fn derive_client_impl(crate_path: &Path, name: &str, fns: &[syn::TraitItemFn]) -
                     if p.path.is_ident("String") {
                         // -- use unqualified function name so that it can be redefined by the client
                         quote! { nondet_string() }
+                    } else if p.path.is_ident("Address") {
+                        quote! { nondet_address() }
                     } else {
                         quote! { cvlr::nondet() }
                     }
