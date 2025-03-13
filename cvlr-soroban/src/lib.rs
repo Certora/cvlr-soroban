@@ -1,8 +1,8 @@
 #![no_std]
-mod nondet;
 mod auth;
+mod nondet;
 
-pub use nondet::*;
 pub use auth::*;
+pub use nondet::*;
 
 pub mod testutils {}
