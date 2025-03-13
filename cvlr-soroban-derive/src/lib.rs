@@ -8,7 +8,6 @@ pub fn cvlr_mock_client(attr: TokenStream, item: TokenStream) -> TokenStream {
     mock_client::cvlr_mock_client(attr, item)
 }
 
-
 #[proc_macro]
 pub fn declare_rule(input: TokenStream) -> TokenStream {
     rule::declare_rule(input)
