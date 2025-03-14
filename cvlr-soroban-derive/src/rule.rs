@@ -26,7 +26,7 @@ pub fn declare_rule(input: TokenStream) -> TokenStream {
     let rules = x
         .idents
         .iter()
-        .flat_map(|i| format!("{}\0", i.to_string()).into_bytes())
+        .flat_map(|i| format!("{}\0", i).into_bytes())
         .collect::<Vec<u8>>();
     let rule_lit = proc_macro2::Literal::byte_string(rules.as_slice());
     let rule_size: usize = rules.len();

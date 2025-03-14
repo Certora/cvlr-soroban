@@ -63,7 +63,7 @@ fn env_input(f: &syn::TraitItemFn) -> bool {
                     ..
                 }) = ty
                 {
-                    if segments.last().map_or(false, |s| s.ident == "Env") {
+                    if segments.last().is_some_and(|s| s.ident == "Env") {
                         Some(())
                     } else {
                         None
@@ -111,7 +111,7 @@ fn derive_client_impl(crate_path: &Path, name: &str, fns: &[syn::TraitItemFn]) -
             //let fn_try_output = f.try_output(crate_path);
             // taken from soroban-sdk-macros
             // Check for the Env argument.
-            let (_, binds) = non_env_inputs(&f);
+            let (_, binds) = non_env_inputs(f);
             match f.default {
                 None => quote! {
                     #[allow(unused)]
