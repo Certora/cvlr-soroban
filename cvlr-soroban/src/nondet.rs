@@ -19,7 +19,7 @@ where
 
 pub fn nondet_string() -> String {
     let nd: u8 = nondet();
-    return String::from_bytes(&Env::default(), &[nd]);
+    String::from_bytes(&Env::default(), &[nd])
 }
 
 pub fn nondet_vec<V>() -> Vec<V>
