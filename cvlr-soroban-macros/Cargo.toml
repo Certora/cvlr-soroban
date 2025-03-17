@@ -1,8 +1,16 @@
 [package]
 name = "cvlr-soroban-macros"
-authors = ["Arie Gurfinkel <arie@certora.com>"]
+description = "Macros for cvlr-soroban"
 version.workspace = true
-edition = "2021"
+edition.workspace = true
+license.workspace = true
+categories.workspace = true
+keywords.workspace = true
+authors.workspace = true
+documentation.workspace = true
+readme.workspace = true
+homepage.workspace = true
+repository.workspace = true
 
 [features]
 default = []
