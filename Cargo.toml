@@ -18,6 +18,6 @@ trybuild = "1"
 soroban-sdk = "22"
 
 
-cvlr-asserts = { git = "https://github.com/Certora/cvlr.git", version = "0.3" }
-cvlr-nondet = { git = "https://github.com/Certora/cvlr.git", default-features = false, version = "0.3" }
-cvlr-log = { git = "https://github.com/Certora/cvlr.git", default-features = false, version = "0.3" }
+cvlr-asserts = { git = "https://github.com/Certora/cvlr.git", version = "0.4" }
+cvlr-nondet = { git = "https://github.com/Certora/cvlr.git", default-features = false, version = "0.4" }
+cvlr-log = { git = "https://github.com/Certora/cvlr.git", default-features = false, version = "0.4" }
