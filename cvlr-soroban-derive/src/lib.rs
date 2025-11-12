@@ -18,20 +18,26 @@ pub fn rule(attr: TokenStream, input: TokenStream) -> TokenStream {
     rule::rule(attr, input)
 }
 
-// A dummy field attribute to return the original input.
-#[proc_macro_attribute]
-pub fn topic(_attr: TokenStream, item: TokenStream) -> TokenStream {
-    item
-}
-
-// A dummy macro for `#[contractevent]`.
-// It removes `#[topic]` and returns the struct without any changes.
+/// A dummy macro for `#[contractevent]`.
+/// It removes `#[topic]` and returns the struct without any changes.
+/// # Example
+/// ```
+/// #[contractevent]
+/// #[derive(Clone, Debug, Eq, PartialEq)]
+/// pub struct RoleGranted {
+///     #[topic]
+///     pub role: Symbol,
+///     #[topic]
+///     pub account: Address,
+///     pub caller: Address,
+/// }
+/// ```
 #[proc_macro_attribute]
 pub fn contractevent(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let input = syn::parse_macro_input!(item as syn::ItemStruct);
     let mut output = input.clone();
 
-    // Removes #[topic] attributes from fields
+    // Remove #[topic] attributes from fields
     if let syn::Fields::Named(ref mut fields) = output.fields {
         for field in &mut fields.named {
             field.attrs = field
@@ -53,4 +59,10 @@ pub fn contractevent(_attr: TokenStream, item: TokenStream) -> TokenStream {
     };
 
     expanded.into()
+}
+
+/// A dummy field attribute to return the original input.
+#[proc_macro_attribute]
+pub fn topic(_attr: TokenStream, item: TokenStream) -> TokenStream {
+    item
 }
