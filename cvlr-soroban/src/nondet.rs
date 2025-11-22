@@ -1,5 +1,5 @@
 use cvlr_nondet::nondet;
-use soroban_sdk::{Address, Bytes, Env, IntoVal, Map, String, Symbol, TryFromVal, Val, Vec};
+use soroban_sdk::{Address, Bytes, BytesN, Env, IntoVal, Map, String, Symbol, TryFromVal, Val, Vec};
 
 pub fn nondet_address() -> Address {
     let v: u64 = nondet();
@@ -41,4 +41,10 @@ pub fn nondet_bytes() -> Bytes {
     let v: u64 = nondet();
     let val = Val::from_payload((v << 8) | 72);
     Bytes::try_from_val(&Env::default(), &val).unwrap()
+}
+
+pub fn nondet_bytes_n() -> BytesN<32> {
+    let v: u64 = nondet();
+    let val = Val::from_payload((v << 8) | 72);
+    BytesN::try_from_val(&Env::default(), &val).unwrap()
 }
