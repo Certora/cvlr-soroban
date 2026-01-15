@@ -22,7 +22,7 @@ impl cvlr_log::CvlrLog for Sym<'_> {
     }
 }
 
-// Note: this only works if Bytes was created with nondet_bytes().
+// Note: this only works if Bytes was created with nondet_bytes_n().
 impl cvlr_log::CvlrLog for BN<'_> {
     #[inline(always)]
     fn log(&self, tag: &str, logger: &mut cvlr_log::CvlrLogger) {
