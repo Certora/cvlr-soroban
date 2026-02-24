@@ -4,6 +4,71 @@ pub struct Sym<'a>(pub &'a soroban_sdk::Symbol);
 pub struct BN<'a>(pub &'a soroban_sdk::BytesN<32>);
 pub struct B<'a>(pub &'a soroban_sdk::Bytes);
 
+pub trait AsCvlr<'a> {
+    type Cvlr;
+    fn as_cvlr(&'a self) -> Self::Cvlr;
+}
+
+impl<'a> AsCvlr<'a> for soroban_sdk::Address {
+    type Cvlr = Addr<'a>;
+    #[inline(always)]
+    fn as_cvlr(&'a self) -> Addr<'a> {
+        Addr(self)
+    }
+}
+
+impl<'a> AsCvlr<'a> for soroban_sdk::Symbol {
+    type Cvlr = Sym<'a>;
+    #[inline(always)]
+    fn as_cvlr(&'a self) -> Sym<'a> {
+        Sym(self)
+    }
+}
+
+impl<'a> AsCvlr<'a> for soroban_sdk::BytesN<32> {
+    type Cvlr = BN<'a>;
+    #[inline(always)]
+    fn as_cvlr(&'a self) -> BN<'a> {
+        BN(self)
+    }
+}
+
+impl<'a> AsCvlr<'a> for soroban_sdk::Bytes {
+    type Cvlr = B<'a>;
+    #[inline(always)]
+    fn as_cvlr(&'a self) -> B<'a> {
+        B(self)
+    }
+}
+
+impl<'a> From<Addr<'a>> for soroban_sdk::Address {
+    #[inline(always)]
+    fn from(v: Addr<'a>) -> Self {
+        v.0.clone()
+    }
+}
+
+impl<'a> From<Sym<'a>> for soroban_sdk::Symbol {
+    #[inline(always)]
+    fn from(v: Sym<'a>) -> Self {
+        v.0.clone()
+    }
+}
+
+impl<'a> From<BN<'a>> for soroban_sdk::BytesN<32> {
+    #[inline(always)]
+    fn from(v: BN<'a>) -> Self {
+        v.0.clone()
+    }
+}
+
+impl<'a> From<B<'a>> for soroban_sdk::Bytes {
+    #[inline(always)]
+    fn from(v: B<'a>) -> Self {
+        v.0.clone()
+    }
+}
+
 impl cvlr_log::CvlrLog for Addr<'_> {
     #[inline(always)]
     fn log(&self, tag: &str, logger: &mut cvlr_log::CvlrLogger) {

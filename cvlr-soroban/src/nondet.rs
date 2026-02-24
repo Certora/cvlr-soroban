@@ -39,7 +39,7 @@ pub fn nondet_symbol() -> Symbol {
     Symbol::try_from_val(&Env::default(), &val).unwrap()
 }
 
-pub fn nondet_bytes() -> Bytes {
+pub fn nondet_bytes1() -> Bytes {
     let v: u8 = nondet();
     Bytes::from_slice(&Env::default(), &[v])
 }
