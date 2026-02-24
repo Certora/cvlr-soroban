@@ -1,5 +1,7 @@
 use cvlr_nondet::nondet;
-use soroban_sdk::{Address, Bytes, BytesN, Env, IntoVal, Map, String, Symbol, TryFromVal, Val, Vec};
+use soroban_sdk::{
+    Address, Bytes, BytesN, Env, IntoVal, Map, String, Symbol, TryFromVal, Val, Vec,
+};
 
 pub fn nondet_address() -> Address {
     let v: u64 = nondet();

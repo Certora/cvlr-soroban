@@ -18,8 +18,10 @@ pub fn rule(attr: TokenStream, input: TokenStream) -> TokenStream {
     rule::rule(attr, input)
 }
 
-/// A dummy macro for `#[contractevent]`.
-/// It removes `#[topic]` and returns the struct without any changes.
+/// A compatibility stub for Soroban's `#[contractevent]`.
+/// In CVLR builds we don't emit event metadata, but we still want event
+/// structs to compile. We strip `#[topic]` so the attribute doesn't linger
+/// as an unused field attribute.
 /// # Example
 /// ```
 /// #[contractevent]
@@ -61,7 +63,8 @@ pub fn contractevent(_attr: TokenStream, item: TokenStream) -> TokenStream {
     expanded.into()
 }
 
-/// A dummy field attribute to return the original input.
+/// A no-op attribute so `#[topic]` doesn't cause errors outside of
+/// `#[contractevent]` contexts.
 #[proc_macro_attribute]
 pub fn topic(_attr: TokenStream, item: TokenStream) -> TokenStream {
     item
