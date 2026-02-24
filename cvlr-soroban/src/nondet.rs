@@ -1,5 +1,5 @@
 use cvlr_nondet::nondet;
-use soroban_sdk::{Address, Bytes, Env, IntoVal, Map, String, Symbol, TryFromVal, Val, Vec};
+use soroban_sdk::{Address, Bytes, BytesN, Env, IntoVal, Map, String, Symbol, TryFromVal, Val, Vec};
 
 pub fn nondet_address() -> Address {
     let v: u64 = nondet();
@@ -22,6 +22,8 @@ pub fn nondet_string() -> String {
     String::from_bytes(&Env::default(), &[nd])
 }
 
+// Only use when need a Tag correct Val, recommend creating proper nondet
+// Vec for any given type.
 pub fn nondet_vec<V>() -> Vec<V>
 where
     V: IntoVal<Env, Val> + TryFromVal<Env, Val>,
@@ -38,7 +40,15 @@ pub fn nondet_symbol() -> Symbol {
 }
 
 pub fn nondet_bytes() -> Bytes {
-    let v: u64 = nondet();
-    let val = Val::from_payload((v << 8) | 72);
-    Bytes::try_from_val(&Env::default(), &val).unwrap()
+    let v: u8 = nondet();
+    Bytes::from_slice(&Env::default(), &[v])
+}
+
+#[allow(improper_ctypes)]
+extern "C" {
+    fn CVT_nondet_bytes_n_32() -> BytesN<32>;
+}
+
+pub fn nondet_bytes_n() -> BytesN<32> {
+    unsafe { CVT_nondet_bytes_n_32() }
 }
