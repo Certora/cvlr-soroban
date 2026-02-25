@@ -92,7 +92,7 @@ fn derive_client_impl(crate_path: &Path, name: &str, fns: &[syn::TraitItemFn]) -
             let fn_output = fn_output_ty.map_or(quote!(()), |x| quote!(#x));
 
             let nd = if fn_output_ty.is_some() {
-                if let syn::Type::Path(ref p) = fn_output_ty.unwrap() {
+                if let Some(syn::Type::Path(ref p)) = fn_output_ty {
                     if p.path.is_ident("String") {
                         // -- use unqualified function name so that it can be redefined by the client
                         quote! { nondet_string() }

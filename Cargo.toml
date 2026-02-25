@@ -38,8 +38,8 @@ quote = "1"
 syn = "2"
 macrotest = "1"
 trybuild = "1"
+soroban-sdk = "25.1.1"
 
-soroban-sdk = "23.0.3"
 
 
 cvlr-asserts = { version = ">= 0.4.0, < 1" }
