@@ -46,8 +46,8 @@ pub fn nondet_bytes1() -> Bytes {
     Bytes::from_slice(&Env::default(), &[v])
 }
 
-#[allow(improper_ctypes)]
 extern "C" {
+    #[allow(improper_ctypes)]
     fn CVT_nondet_bytes_n_32() -> BytesN<32>;
 }
 
