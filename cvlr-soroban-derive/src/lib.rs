@@ -24,6 +24,9 @@ pub fn rule(attr: TokenStream, input: TokenStream) -> TokenStream {
 /// as an unused field attribute.
 /// # Example
 /// ```
+/// use cvlr_soroban_derive::contractevent;
+/// use soroban_sdk::{Address, Symbol};
+///
 /// #[contractevent]
 /// #[derive(Clone, Debug, Eq, PartialEq)]
 /// pub struct RoleGranted {
@@ -36,31 +39,28 @@ pub fn rule(attr: TokenStream, input: TokenStream) -> TokenStream {
 /// ```
 #[proc_macro_attribute]
 pub fn contractevent(_attr: TokenStream, item: TokenStream) -> TokenStream {
-    let input = syn::parse_macro_input!(item as syn::ItemStruct);
-    let mut output = input.clone();
+    let mut output = syn::parse_macro_input!(item as syn::ItemStruct);
 
     // Remove #[topic] attributes from fields
     if let syn::Fields::Named(ref mut fields) = output.fields {
         for field in &mut fields.named {
-            field.attrs = field
-                .attrs
-                .iter()
-                .filter(|a| !a.path().is_ident("topic"))
-                .cloned()
-                .collect::<Vec<syn::Attribute>>();
+            field.attrs.retain(|a| !a.path().is_ident("topic"));
         }
     }
 
-    let vis = &output.vis;
     let ident = &output.ident;
-    let fields = &output.fields;
+    let generics = &output.generics;
+    let (gen_impl, gen_types, gen_where) = generics.split_for_impl();
 
-    // Return the struct without `#[topic]`
-    let expanded = quote::quote! {
-        #vis struct #ident #fields
-    };
+    quote::quote! {
+        #output
 
-    expanded.into()
+        // stub out `publish`
+        impl #gen_impl #ident #gen_types #gen_where {
+            pub fn publish(&self, _env: &soroban_sdk::Env) {}
+        }
+    }
+    .into()
 }
 
 /// A no-op attribute so `#[topic]` doesn't cause errors outside of
