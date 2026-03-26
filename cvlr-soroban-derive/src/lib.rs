@@ -47,15 +47,14 @@ pub fn contractevent(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
     let ident = &output.ident;
     let generics = &output.generics;
-    let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
+    let (gen_impl, gen_types, gen_where) = generics.split_for_impl();
 
     quote::quote! {
         #output
 
         // stub out `publish`
-        impl #impl_generics #ident #ty_generics #where_clause {
-            #[inline(always)]
-            pub fn publish<E>(&self, _env: &E) {}
+        impl #gen_impl #ident #gen_types #gen_where {
+            pub fn publish(&self, _env: &Env) {}
         }
     }
     .into()
