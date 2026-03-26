@@ -4,39 +4,7 @@ Soroban-specific components of [CVLR](https://github.com/Certora/cvlr) (Certora 
 
 ## Overview
 
-This workspace provides Soroban-related utilities for writing specs for Certora's. Sunbeam verifier. It includes:
-
-- nondeterministic constructors for common Soroban values
-- logging adapters for Soroban SDK types
-- verification helpers for authorization-related reasoning
-- proc-macros for rules, mock clients, and Soroban compatibility shims
-- helper macros for swapping native implementations with summarized verification behavior
-
-## Workspace Crates
-
-This repository contains three crates:
-
-### `cvlr-soroban`
-
-Core Soroban support for verification-oriented builds, including:
-
-- nondeterministic `Address`, `Map`, `String`, `Vec`, `Symbol`, `Bytes`, and `BytesN<32>` constructors
-- logging wrappers for `Address`, `Symbol`, `Bytes`, and `BytesN<32>` through `cvlr-log`
-- helper APIs such as `is_auth` for reasoning about authorization in specs
-
-### `cvlr-soroban-derive`
-
-Proc-macros for Soroban verification workflows, including:
-
-- `#[rule]` and `declare_rule!` for rule registration
-- `#[cvlr_mock_client(...)]` for generating mock client implementations from traits
-- `#[contractevent]` and `#[topic]` compatibility shims for CVLR builds
-
-### `cvlr-soroban-macros`
-
-Macro helpers used to redirect code to summarized verification behavior, including:
-
-- `apply_summary!` for replacing function or method bodies under verification-specific configurations
+This repo provides Soroban-related utilities for writing specs for Certora's Sunbeam verifier.
 
 ## Getting Started
 
@@ -49,8 +17,6 @@ cvlr-soroban-derive = "0.4.0"
 cvlr-soroban-macros = "0.4.0"
 soroban-sdk = "25.1.1"
 ```
-
-Omit any crates that your project does not use.
 
 ## Using Unreleased Versions
 
@@ -98,7 +64,7 @@ MACROTEST=overwrite cargo test -p cvlr-soroban-derive --test test_contractevent 
 ## Documentation and Related Repositories
 
 - [CVLR](https://github.com/Certora/cvlr)
-- [Soroban verification documentation](https://docs.certora.com/en/latest/docs/sunbeam/index.html)
+- [Soroban verification documentation](https://docs.certora.com/en/latest/docs/sunbeam/index.html) for how to write specs and run Sunbeam
 - [Sunbeam tutorials](https://github.com/Certora/sunbeam-tutorials)
 
 ## License
