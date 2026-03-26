@@ -24,6 +24,9 @@ pub fn rule(attr: TokenStream, input: TokenStream) -> TokenStream {
 /// as an unused field attribute.
 /// # Example
 /// ```
+/// use cvlr_soroban_derive::contractevent;
+/// use soroban_sdk::{Address, Symbol};
+///
 /// #[contractevent]
 /// #[derive(Clone, Debug, Eq, PartialEq)]
 /// pub struct RoleGranted {
@@ -54,7 +57,7 @@ pub fn contractevent(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
         // stub out `publish`
         impl #gen_impl #ident #gen_types #gen_where {
-            pub fn publish(&self, _env: &Env) {}
+            pub fn publish(&self, _env: &soroban_sdk::Env) {}
         }
     }
     .into()
