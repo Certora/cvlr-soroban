@@ -51,16 +51,20 @@ pub fn contractevent(_attr: TokenStream, item: TokenStream) -> TokenStream {
         }
     }
 
-    let vis = &output.vis;
     let ident = &output.ident;
-    let fields = &output.fields;
+    let generics = &output.generics;
+    let (impl_generics, ty_generics, where_clause) = generics.split_for_impl();
 
-    // Return the struct without `#[topic]`
-    let expanded = quote::quote! {
-        #vis struct #ident #fields
-    };
+    quote::quote! {
+        #output
 
-    expanded.into()
+        // stub out `publish`
+        impl #impl_generics #ident #ty_generics #where_clause {
+            #[inline(always)]
+            pub fn publish<E>(&self, _env: &E) {}
+        }
+    }
+    .into()
 }
 
 /// A no-op attribute so `#[topic]` doesn't cause errors outside of
