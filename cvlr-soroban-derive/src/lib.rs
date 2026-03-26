@@ -36,18 +36,12 @@ pub fn rule(attr: TokenStream, input: TokenStream) -> TokenStream {
 /// ```
 #[proc_macro_attribute]
 pub fn contractevent(_attr: TokenStream, item: TokenStream) -> TokenStream {
-    let input = syn::parse_macro_input!(item as syn::ItemStruct);
-    let mut output = input.clone();
+    let mut output = syn::parse_macro_input!(item as syn::ItemStruct);
 
     // Remove #[topic] attributes from fields
     if let syn::Fields::Named(ref mut fields) = output.fields {
         for field in &mut fields.named {
-            field.attrs = field
-                .attrs
-                .iter()
-                .filter(|a| !a.path().is_ident("topic"))
-                .cloned()
-                .collect::<Vec<syn::Attribute>>();
+            field.attrs.retain(|a| !a.path().is_ident("topic"));
         }
     }
 
