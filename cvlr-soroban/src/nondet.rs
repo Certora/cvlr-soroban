@@ -1,7 +1,7 @@
 use cvlr_nondet::nondet;
 use soroban_sdk::{
-    Address, Bytes, BytesN, Duration, Env, I256, IntoVal, Map, String, Symbol, Timepoint,
-    TryFromVal, U256, Val, Vec,
+    Address, Bytes, BytesN, Duration, Env, IntoVal, Map, String, Symbol, Timepoint, TryFromVal,
+    Val, Vec, I256, U256,
 };
 
 pub fn nondet_address() -> Address {
