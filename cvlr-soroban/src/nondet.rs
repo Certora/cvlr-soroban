@@ -1,6 +1,7 @@
 use cvlr_nondet::nondet;
 use soroban_sdk::{
-    Address, Bytes, BytesN, Env, IntoVal, Map, String, Symbol, TryFromVal, Val, Vec,
+    Address, Bytes, BytesN, Duration, Env, IntoVal, Map, String, Symbol, Timepoint, TryFromVal,
+    Val, Vec, I256, U256,
 };
 
 pub fn nondet_address() -> Address {
@@ -53,4 +54,20 @@ extern "C" {
 
 pub fn nondet_bytes_n() -> BytesN<32> {
     unsafe { CVT_nondet_bytes_n_32() }
+}
+
+pub fn nondet_duration() -> Duration {
+    Duration::from_seconds(&Env::default(), nondet())
+}
+
+pub fn nondet_timepoint() -> Timepoint {
+    Timepoint::from_unix(&Env::default(), nondet())
+}
+
+pub fn nondet_u256() -> U256 {
+    U256::from_parts(&Env::default(), nondet(), nondet(), nondet(), nondet())
+}
+
+pub fn nondet_i256() -> I256 {
+    I256::from_parts(&Env::default(), nondet(), nondet(), nondet(), nondet())
 }
