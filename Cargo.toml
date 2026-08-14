@@ -38,10 +38,16 @@ quote = "1"
 syn = "2"
 macrotest = "1"
 trybuild = "1"
-soroban-sdk = "25.1.1"
+soroban-sdk = "23.4.0"
 
+[workspace.dependencies.cvlr-asserts]
+path = "/Users/julian/git/cvlr/cvlr-asserts"
+default-features = false
 
+[workspace.dependencies.cvlr-nondet]
+path = "/Users/julian/git/cvlr/cvlr-nondet"
+default-features = false
 
-cvlr-asserts = { version = ">= 0.4.0, < 1" }
-cvlr-nondet = { version = ">= 0.4.0, <1", default-features = false }
-cvlr-log = { version = ">= 0.4.0, <1", default-features = false }
+[workspace.dependencies.cvlr-log]
+path = "/Users/julian/git/cvlr/cvlr-log"
+default-features = false

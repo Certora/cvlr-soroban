@@ -1,7 +1,7 @@
 use cvlr_nondet::nondet;
 use soroban_sdk::{
-    Address, Bytes, BytesN, Duration, Env, IntoVal, Map, String, Symbol, Timepoint, TryFromVal,
-    Val, Vec, I256, U256,
+    Address, Bytes, BytesN, Duration, Env, IntoVal, Map, String, Symbol, Timepoint, TryFromVal, MuxedAddress,
+    Val, Vec, I256, U256
 };
 
 pub fn nondet_address() -> Address {
@@ -10,6 +10,10 @@ pub fn nondet_address() -> Address {
     Address::try_from_val(&Env::default(), &val).unwrap()
 }
 
+pub fn nondet_muxedaddress() -> MuxedAddress {
+    MuxedAddress::from(nondet_address())
+}
+    
 pub fn nondet_map<K, V>() -> Map<K, V>
 where
     K: IntoVal<Env, Val> + TryFromVal<Env, Val>,
@@ -68,6 +72,19 @@ pub fn nondet_u256() -> U256 {
     U256::from_parts(&Env::default(), nondet(), nondet(), nondet(), nondet())
 }
 
+pub fn nondet_u32() -> u32 {
+    nondet()
+}
+
+pub fn nondet_u64() -> u64 {
+    nondet()
+}
+
 pub fn nondet_i256() -> I256 {
     I256::from_parts(&Env::default(), nondet(), nondet(), nondet(), nondet())
 }
+
+pub fn nondet_i128() -> i128 {
+    nondet()
+}
+
