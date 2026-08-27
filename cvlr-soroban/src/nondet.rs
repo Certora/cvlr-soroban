@@ -1,7 +1,10 @@
-use cvlr_nondet::{nondet, cvlr_nondet_u64, cvlr_nondet_u32, cvlr_nondet_small_i128, cvlr_nondet_small_u128, Nondet};
+use cvlr_nondet::{
+    cvlr_nondet_small_i128, cvlr_nondet_small_u128, cvlr_nondet_u32, cvlr_nondet_u64, nondet,
+    Nondet,
+};
 use soroban_sdk::{
-    Address, Bytes, BytesN, Duration, Env, IntoVal, Map, MuxedAddress, String, Symbol, Timepoint, TryFromVal,
-    Val, Vec, I256, U256
+    Address, Bytes, BytesN, Duration, Env, IntoVal, Map, MuxedAddress, String, Symbol, Timepoint,
+    TryFromVal, Val, Vec, I256, U256,
 };
 
 pub fn nondet_address() -> Address {
@@ -29,8 +32,9 @@ pub fn nondet_string() -> String {
     String::from_bytes(&Env::default(), &[nd])
 }
 
-pub fn nondet_vec_internal<V>(newv: fn () -> V) -> Vec<V> 
-    where V : IntoVal<Env, Val> + TryFromVal<Env, Val>
+pub fn nondet_vec_internal<V>(newv: fn() -> V) -> Vec<V>
+where
+    V: IntoVal<Env, Val> + TryFromVal<Env, Val>,
 {
     let env = Env::default();
     let mut out: Vec<V> = Vec::new(&env);
@@ -38,22 +42,22 @@ pub fn nondet_vec_internal<V>(newv: fn () -> V) -> Vec<V>
     let mut i = 0;
     let l = nondet();
     if l <= 5 {
-      while i < l {
-        out.push_back(newv());
-	i += 1;
-      }
+        while i < l {
+            out.push_back(newv());
+            i += 1;
+        }
     }
     out
 }
 
-pub fn nondet_vec<V>() -> Vec<V> 
-    where V : Nondet + IntoVal<Env, Val> + TryFromVal<Env, Val>
+pub fn nondet_vec<V>() -> Vec<V>
+where
+    V: Nondet + IntoVal<Env, Val> + TryFromVal<Env, Val>,
 {
     nondet_vec_internal(Nondet::nondet)
 }
 
-pub fn nondet_vec_address() -> Vec<Address> 
-{
+pub fn nondet_vec_address() -> Vec<Address> {
     nondet_vec_internal(nondet_address)
 }
 
