@@ -40,6 +40,6 @@ macrotest = "1"
 trybuild = "1"
 soroban-sdk = "26.1.0"
 
-cvlr-asserts = { git = "https://github.com/Certora/cvlr", branch = "julian/soroban_auto_sanity" }
-cvlr-nondet = {  git = "https://github.com/Certora/cvlr", branch = "julian/soroban_auto_sanity" }
-cvlr-log = {  git = "https://github.com/Certora/cvlr", branch = "julian/soroban_auto_sanity" }
+cvlr-asserts = { git = "https://github.com/Certora/cvlr", branch = "0.6.1-soroban-changes" }
+cvlr-nondet = {  git = "https://github.com/Certora/cvlr", branch = "0.6.1-soroban-changes" }
+cvlr-log = {  git = "https://github.com/Certora/cvlr", branch = "0.6.1-soroban-changes" }
