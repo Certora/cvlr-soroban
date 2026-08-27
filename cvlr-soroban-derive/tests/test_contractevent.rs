@@ -8,4 +8,5 @@ fn test_contractevent_compiles() {
     let t = trybuild::TestCases::new();
     t.pass("tests/expand/basic.rs");
     t.pass("tests/expand/generics.rs");
+    t.pass("tests/compile/derives.rs");
 }

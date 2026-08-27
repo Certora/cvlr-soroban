@@ -2,8 +2,10 @@
 
 use cvlr_soroban_derive::contractevent;
 
+// no derives here so the expanded output does not depend on the
+// compiler's builtin derive expansion, which changes between rustc
+// versions
 #[contractevent]
-#[derive(Clone, Debug, Eq, PartialEq)]
 pub struct GenericEvent<'a, T>
 where
     T: Clone + Eq,

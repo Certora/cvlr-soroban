@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -14,8 +17,36 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@v1
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
+
       - name: Check Code Formatting with `cargo fmt`
         run: cargo fmt -- --check
 
       - name: Run Clippy Linting
         run: cargo clippy -- --deny warnings
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@v1
+        with:
+          toolchain: stable
+      - name: Cache Cargo Artifacts
+        uses: Swatinem/rust-cache@v2
+
+      # needed by macrotest to expand the tests/expand/*.rs cases
+      - name: Install cargo-expand
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-expand
+
+      - name: Run `cargo test`
+        run: cargo test --workspace

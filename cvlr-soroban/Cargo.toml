@@ -18,9 +18,7 @@ rt = ["cvlr-nondet/rt", "cvlr-asserts/rt"]
 testutils = ["soroban-sdk/testutils"]
 
 [dependencies]
-
-soroban-sdk = { workspace = true }
-
-cvlr-asserts = { workspace = true }
+soroban-sdk = { workspace = true, default-features = false  }
+cvlr-asserts = { workspace = true, default-features = false  }
 cvlr-nondet = { workspace = true, default-features = false }
 cvlr-log = { workspace = true, default-features = false }

@@ -1,13 +1,20 @@
-use cvlr_nondet::nondet;
+use cvlr_nondet::{
+    cvlr_nondet_small_i128, cvlr_nondet_small_u128, cvlr_nondet_u32, cvlr_nondet_u64, nondet,
+    Nondet,
+};
 use soroban_sdk::{
-    Address, Bytes, BytesN, Duration, Env, IntoVal, Map, String, Symbol, Timepoint, TryFromVal,
-    Val, Vec, I256, U256,
+    Address, Bytes, BytesN, Duration, Env, IntoVal, Map, MuxedAddress, String, Symbol, Timepoint,
+    TryFromVal, Val, Vec, I256, U256,
 };
 
 pub fn nondet_address() -> Address {
     let v: u64 = nondet();
     let val = Val::from_payload((v << 8) | 77);
     Address::try_from_val(&Env::default(), &val).unwrap()
+}
+
+pub fn nondet_muxedaddress() -> MuxedAddress {
+    MuxedAddress::from(nondet_address())
 }
 
 pub fn nondet_map<K, V>() -> Map<K, V>
@@ -25,15 +32,33 @@ pub fn nondet_string() -> String {
     String::from_bytes(&Env::default(), &[nd])
 }
 
-// Only use when need a Tag correct Val, recommend creating proper nondet
-// Vec for any given type.
-pub fn nondet_vec<V>() -> Vec<V>
+pub fn nondet_vec_internal<V>(newv: fn() -> V) -> Vec<V>
 where
     V: IntoVal<Env, Val> + TryFromVal<Env, Val>,
 {
-    let v: u64 = nondet();
-    let val = Val::from_payload((v << 8) | 75);
-    Vec::try_from_val(&Env::default(), &val).unwrap()
+    let env = Env::default();
+    let mut out: Vec<V> = Vec::new(&env);
+
+    let mut i = 0;
+    let l = nondet();
+    if l <= 5 {
+        while i < l {
+            out.push_back(newv());
+            i += 1;
+        }
+    }
+    out
+}
+
+pub fn nondet_vec<V>() -> Vec<V>
+where
+    V: Nondet + IntoVal<Env, Val> + TryFromVal<Env, Val>,
+{
+    nondet_vec_internal(Nondet::nondet)
+}
+
+pub fn nondet_vec_address() -> Vec<Address> {
+    nondet_vec_internal(nondet_address)
 }
 
 pub fn nondet_symbol() -> Symbol {
@@ -47,12 +72,13 @@ pub fn nondet_bytes1() -> Bytes {
     Bytes::from_slice(&Env::default(), &[v])
 }
 
+#[link(wasm_import_module = "env")]
 extern "C" {
     #[allow(improper_ctypes)]
     fn CVT_nondet_bytes_n_32() -> BytesN<32>;
 }
 
-pub fn nondet_bytes_n() -> BytesN<32> {
+pub fn nondet_bytesn() -> BytesN<32> {
     unsafe { CVT_nondet_bytes_n_32() }
 }
 
@@ -68,6 +94,26 @@ pub fn nondet_u256() -> U256 {
     U256::from_parts(&Env::default(), nondet(), nondet(), nondet(), nondet())
 }
 
+pub fn nondet_u32() -> u32 {
+    cvlr_nondet_u32()
+}
+
+pub fn nondet_u64() -> u64 {
+    cvlr_nondet_u64()
+}
+
 pub fn nondet_i256() -> I256 {
     I256::from_parts(&Env::default(), nondet(), nondet(), nondet(), nondet())
+}
+
+pub fn nondet_i128() -> i128 {
+    cvlr_nondet_small_i128()
+}
+
+pub fn nondet_u128() -> u128 {
+    cvlr_nondet_small_u128()
+}
+
+pub fn nondet_bool() -> bool {
+    cvlr_nondet_u64() > 0
 }
