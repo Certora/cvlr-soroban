@@ -16,6 +16,7 @@ repository.workspace = true
 default = []
 rt = ["cvlr-nondet/rt", "cvlr-asserts/rt"]
 testutils = ["soroban-sdk/testutils"]
+nomuxedaddress = []
 
 [dependencies]
 soroban-sdk = { workspace = true, default-features = false  }
