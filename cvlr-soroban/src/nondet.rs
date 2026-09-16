@@ -1,6 +1,6 @@
 use cvlr_nondet::{
-    cvlr_nondet_i32, cvlr_nondet_small_i128, cvlr_nondet_small_u128, cvlr_nondet_u32, cvlr_nondet_u64, nondet,
-    Nondet,
+    cvlr_nondet_i32, cvlr_nondet_small_i128, cvlr_nondet_small_u128, cvlr_nondet_u32,
+    cvlr_nondet_u64, nondet, Nondet,
 };
 use soroban_sdk::{
     Address, Bytes, BytesN, Duration, Env, IntoVal, Map, MuxedAddress, String, Symbol, Timepoint,
@@ -17,13 +17,13 @@ pub fn nondet_muxedaddress() -> MuxedAddress {
     MuxedAddress::from(nondet_address())
 }
 
-pub fn nondet_map_internal<K, V>(newk: fn() -> K, newv: fn() -> V) -> Map<K,V>
+pub fn nondet_map_internal<K, V>(newk: fn() -> K, newv: fn() -> V) -> Map<K, V>
 where
     K: IntoVal<Env, Val> + TryFromVal<Env, Val>,
     V: IntoVal<Env, Val> + TryFromVal<Env, Val>,
 {
     let env = Env::default();
-    let mut out: Map<K,V> = Map::new(&env);
+    let mut out: Map<K, V> = Map::new(&env);
 
     let mut i = 0;
     let l = nondet();
@@ -36,17 +36,17 @@ where
     out
 }
 
-pub fn nondet_map<K,V>() -> Map<K,V>
+pub fn nondet_map<K, V>() -> Map<K, V>
 where
     K: Nondet + IntoVal<Env, Val> + TryFromVal<Env, Val>,
-    V: Nondet + IntoVal<Env, Val> + TryFromVal<Env, Val>
+    V: Nondet + IntoVal<Env, Val> + TryFromVal<Env, Val>,
 {
     nondet_map_internal(Nondet::nondet, Nondet::nondet)
 }
 
-pub fn nondet_map_address<V>() -> Map<Address, V> 
+pub fn nondet_map_address<V>() -> Map<Address, V>
 where
-    V: Nondet + IntoVal<Env, Val> + TryFromVal<Env, Val>
+    V: Nondet + IntoVal<Env, Val> + TryFromVal<Env, Val>,
 {
     nondet_map_internal(nondet_address, Nondet::nondet)
 }
@@ -103,7 +103,7 @@ pub fn nondet_bytes1() -> Bytes {
 pub fn nondet_bytes() -> Bytes {
     nondet_bytes1()
 }
-    
+
 #[link(wasm_import_module = "env")]
 #[allow(improper_ctypes)]
 extern "C" {
