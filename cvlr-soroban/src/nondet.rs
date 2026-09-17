@@ -3,9 +3,12 @@ use cvlr_nondet::{
     cvlr_nondet_u64, nondet, Nondet,
 };
 use soroban_sdk::{
-    Address, Bytes, BytesN, Duration, Env, IntoVal, Map, MuxedAddress, String, Symbol, Timepoint,
-    TryFromVal, Val, Vec, I256, U256,
+    Address, Bytes, BytesN, Duration, Env, IntoVal, Map, String, Symbol,
+    Timepoint, TryFromVal, Val, Vec, I256, U256
 };
+
+#[cfg(not(feature = "nomuxedaddress"))]
+use soroban_sdk::MuxedAddress;
 
 pub fn nondet_address() -> Address {
     let v: u64 = nondet();
@@ -13,6 +16,7 @@ pub fn nondet_address() -> Address {
     Address::try_from_val(&Env::default(), &val).unwrap()
 }
 
+#[cfg(not(feature = "nomuxedaddress"))]
 pub fn nondet_muxedaddress() -> MuxedAddress {
     MuxedAddress::from(nondet_address())
 }
