@@ -109,14 +109,24 @@ pub fn nondet_bytes() -> Bytes {
 extern "C" {
     fn CVT_nondet_bytes_n_32() -> BytesN<32>;
     fn CVT_nondet_bytes_n_64() -> BytesN<64>;
+    fn CVT_nondet_bytes_n_65() -> BytesN<65>;
 }
 
 pub fn nondet_bytesn() -> BytesN<32> {
     unsafe { CVT_nondet_bytes_n_32() }
 }
 
+/// TODO: make a macro that does the following three...
+pub fn nondet_bytesn_32() -> BytesN<32> {
+    unsafe { CVT_nondet_bytes_n_32() }
+}
+
 pub fn nondet_bytesn_64() -> BytesN<64> {
     unsafe { CVT_nondet_bytes_n_64() }
+}
+
+pub fn nondet_bytesn_65() -> BytesN<65> {
+    unsafe { CVT_nondet_bytes_n_65() }
 }
 
 pub fn nondet_duration() -> Duration {
