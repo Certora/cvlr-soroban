@@ -128,6 +128,7 @@ pub fn nondet_bytes() -> Bytes {
 #[link(wasm_import_module = "env")]
 #[allow(improper_ctypes)]
 extern "C" {
+    fn CVT_nondet_bytes_n_20() -> BytesN<20>;
     fn CVT_nondet_bytes_n_32() -> BytesN<32>;
     fn CVT_nondet_bytes_n_64() -> BytesN<64>;
     fn CVT_nondet_bytes_n_65() -> BytesN<65>;
@@ -137,7 +138,11 @@ pub fn nondet_bytesn() -> BytesN<32> {
     unsafe { CVT_nondet_bytes_n_32() }
 }
 
-/// TODO: make a macro that does the following three...
+/// TODO: make a macro that does the following four...
+pub fn nondet_bytesn_20() -> BytesN<20> {
+    unsafe { CVT_nondet_bytes_n_20() }
+}
+
 pub fn nondet_bytesn_32() -> BytesN<32> {
     unsafe { CVT_nondet_bytes_n_32() }
 }
