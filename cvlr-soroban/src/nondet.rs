@@ -3,8 +3,8 @@ use cvlr_nondet::{
     cvlr_nondet_u64, nondet, Nondet,
 };
 use soroban_sdk::{
-    Address, Bytes, BytesN, Duration, Env, IntoVal, Map, String, Symbol,
-    Timepoint, TryFromVal, Val, Vec, I256, U256, crypto::Hash, auth::Context
+    auth::Context, crypto::Hash, Address, Bytes, BytesN, Duration, Env, IntoVal, Map, String,
+    Symbol, Timepoint, TryFromVal, Val, Vec, I256, U256,
 };
 
 #[cfg(not(feature = "nomuxedaddress"))]
@@ -16,13 +16,13 @@ pub fn nondet_val() -> Val {
 }
 
 pub fn nondet_hash() -> Hash<32> {
-    let env : Env = Env::default();
+    let env: Env = Env::default();
     let bytes: Bytes = nondet_val().into_val(&env);
     env.crypto().sha256(&bytes)
 }
 
 pub fn nondet_context() -> Context {
-    let env : Env = Env::default();
+    let env: Env = Env::default();
     let val = nondet_val();
     Context::try_from_val(&env, &val).expect("nondet context")
 }
