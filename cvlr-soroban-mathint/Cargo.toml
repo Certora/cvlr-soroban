@@ -1,0 +1,24 @@
+[package]
+name = "cvlr-soroban-mathint"
+description = "Solver native integer integration with the Soroban SDK"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+categories.workspace = true
+keywords.workspace = true
+authors.workspace = true
+documentation.workspace = true
+readme.workspace = true
+homepage.workspace = true
+repository.workspace = true
+
+[features]
+default = []
+
+[dependencies]
+soroban-sdk = { workspace = true }
+cvlr-mathint = { workspace = true }
+
+[dev-dependencies]
+soroban-sdk = { workspace = true }
+cvlr-mathint = { workspace = true }
