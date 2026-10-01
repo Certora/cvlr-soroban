@@ -1,3 +1,4 @@
+use cfg_version::cfg_version;
 use cvlr_nondet::{
     cvlr_nondet_i32, cvlr_nondet_small_i128, cvlr_nondet_small_u128, cvlr_nondet_u32,
     cvlr_nondet_u64, nondet, Nondet,
@@ -6,7 +7,6 @@ use soroban_sdk::{
     auth::Context, crypto::Hash, Address, Bytes, BytesN, Duration, Env, IntoVal, Map, String,
     Symbol, Timepoint, TryFromVal, Val, Vec, I256, U256,
 };
-use cfg_version::cfg_version;
 
 #[cfg_version(soroban_sdk >= "23.0.0")]
 use soroban_sdk::MuxedAddress;
