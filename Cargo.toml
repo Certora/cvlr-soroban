@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["cvlr-soroban", "cvlr-soroban-macros", "cvlr-soroban-derive"]
+members = ["cvlr-soroban", "cvlr-soroban-macros", "cvlr-soroban-derive", "cvlr-soroban-mathint"]
 
 [workspace.package]
 version = "0.4.0"
@@ -38,8 +38,10 @@ quote = "1"
 syn = "2"
 macrotest = "1"
 trybuild = "1"
-soroban-sdk = "26.1.0"
+soroban-sdk = { version = "26.1.0", default-features = false }
+cfg-version = "1.0.2"
 
-cvlr-asserts = { git = "https://github.com/Certora/cvlr", branch = "0.6.1-soroban-changes" }
-cvlr-nondet = {  git = "https://github.com/Certora/cvlr", branch = "0.6.1-soroban-changes" }
-cvlr-log = {  git = "https://github.com/Certora/cvlr", branch = "0.6.1-soroban-changes" }
+cvlr-asserts = { git = "https://github.com/Certora/cvlr", branch = "0.6.1-soroban-changes", default-features = false }
+cvlr-nondet = {  git = "https://github.com/Certora/cvlr", branch = "0.6.1-soroban-changes", default-features = false }
+cvlr-log = {  git = "https://github.com/Certora/cvlr", branch = "0.6.1-soroban-changes", default-features = false } 
+cvlr-mathint = {  git = "https://github.com/Certora/cvlr", branch = "0.6.1-soroban-changes", default-features = false } 
