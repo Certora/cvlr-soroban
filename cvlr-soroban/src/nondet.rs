@@ -6,8 +6,9 @@ use soroban_sdk::{
     auth::Context, crypto::Hash, Address, Bytes, BytesN, Duration, Env, IntoVal, Map, String,
     Symbol, Timepoint, TryFromVal, Val, Vec, I256, U256,
 };
+use cfg_version::cfg_version;
 
-#[cfg(not(feature = "nomuxedaddress"))]
+#[cfg_version(soroban_sdk >= "23.0.0")]
 use soroban_sdk::MuxedAddress;
 
 pub fn nondet_val() -> Val {
@@ -33,7 +34,7 @@ pub fn nondet_address() -> Address {
     Address::try_from_val(&Env::default(), &val).unwrap()
 }
 
-#[cfg(not(feature = "nomuxedaddress"))]
+#[cfg_version(soroban_sdk >= "23.0.0")]
 pub fn nondet_muxedaddress() -> MuxedAddress {
     MuxedAddress::from(nondet_address())
 }
