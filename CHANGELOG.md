@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
+  - `#[rule]` ends the rule with `cvlr_vacuity_check!()`, as `cvlr`'s `#[rule]` does, so the Prover's rule-sanity
+    check can report a rule whose end no execution reaches. An early `return` skips it.
 
 ### Removed
 
