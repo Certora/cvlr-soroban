@@ -39,10 +39,18 @@ pub fn declare_rule(input: TokenStream) -> TokenStream {
     .into()
 }
 
+/// The rule, exported under its own name and listed in `certora_rules`. Its body ends with
+/// `cvlr_vacuity_check!()`, as in `cvlr`'s `#[rule]`; an early `return` skips it.
 pub fn rule(_attr: TokenStream, input: TokenStream) -> TokenStream {
     extern crate self as us;
-    let fn_item = parse_macro_input!(input as syn::ItemFn);
+    let mut fn_item = parse_macro_input!(input as syn::ItemFn);
     let rule_name = format_ident!("{}", &fn_item.sig.ident);
+    let block = &fn_item.block;
+    fn_item.block = syn::parse_quote!({
+        let cvlr_rule_result = #block;
+        ::cvlr_soroban::rule::cvlr_vacuity_check!();
+        cvlr_rule_result
+    });
 
     quote! {
         cvlr_soroban_derive::declare_rule!(#rule_name);
