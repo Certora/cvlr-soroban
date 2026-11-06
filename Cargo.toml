@@ -41,5 +41,5 @@ trybuild = "1"
 soroban-sdk = "26.1.0"
 
 cvlr-asserts = { git = "https://github.com/Certora/cvlr", branch = "0.6.1-soroban-changes" }
-cvlr-nondet = {  git = "https://github.com/Certora/cvlr", branch = "0.6.1-soroban-changes" }
-cvlr-log = {  git = "https://github.com/Certora/cvlr", branch = "0.6.1-soroban-changes" }
+cvlr-nondet = {  git = "https://github.com/Certora/cvlr", branch = "0.6.1-soroban-changes", default-features = false }
+cvlr-log = {  git = "https://github.com/Certora/cvlr", branch = "0.6.1-soroban-changes", default-features = false }

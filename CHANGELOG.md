@@ -10,8 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
+  - `#[rule]` ends the rule with `cvlr_vacuity_check!()`, as `cvlr`'s `#[rule]` does, so the Prover's rule-sanity
+    check can report a rule whose end no execution reaches. An early `return` skips it.
 
 ### Removed
+
+### Fixed
+  - `cvlr-soroban` builds for `wasm32v1-none` again: the workspace's `cvlr-nondet` and `cvlr-log` dependencies
+    set `default-features = false` once more, so `cvlr-nondet`'s `std` feature is off.
 
 
 ## [0.4.0] - 2025-03-17
