@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+### Fixed
+  - `cvlr-soroban` builds for `wasm32v1-none` again: the workspace's `cvlr-nondet` and `cvlr-log` dependencies
+    set `default-features = false` once more, so `cvlr-nondet`'s `std` feature is off.
+
 
 ## [0.4.0] - 2025-03-17
 
